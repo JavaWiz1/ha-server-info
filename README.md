@@ -73,7 +73,7 @@ It basically needs a javascript file (decluttering-card.js) to be installed in y
 
 ## Create a dashboard
 - Settings -> Dashboards
-- Click Add Daskboard (new daskboard from scratch)
+- Click Add dashboard (new dashboard from scratch)
   - Give it a meaningful title (i.e. LAN Hosts)
   - Click Create
 - Open the dashboard
@@ -84,7 +84,7 @@ It basically needs a javascript file (decluttering-card.js) to be installed in y
   views:
   - title: LAN Hosts
   ```
-- Copy the contents of the [decluttering_template.yaml](???) file to the top of the file (before the content above).  Beware of the indentation.
+- Copy the contents of the [decluttering_template.yaml](https://raw.githubusercontent.com/JavaWiz1/ha-server-info/refs/heads/develop/decluttering_templates.yaml) file to the top of the file (before the content above).  Beware of the indentation.
 
 Your view should reflect below (... are collapsed sections)
 ```
