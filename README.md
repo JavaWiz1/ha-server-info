@@ -1,6 +1,6 @@
-# ha-server-stat
+# ha-server-info
 
-### Home Assistant Server Stats Template (for use with Glances)
+### Home Assistant Server Information Template (for use with Glances)
 
 ![Example Dashboard](images/Dashboard.png)
 
@@ -28,7 +28,7 @@ Refer to the [install directions](https://github.com/nicolargo/glances?tab=readm
 - I use pipx for the installation, but pip/pip3 works also.
 - At a minimum, the [web] feature needs to be installed (i.e. pipx install glances[web])
 - I personally have tested it on Raspi OS, Ubuntu, Windows 10 and Windows 11.  
-- The Windows web api seems to be a little intermittent responding, so sometims stats are not available.
+- The Windows web api seems to be a little intermittent responding, so sometimes server information is not available.
 
 ### Configure
 
