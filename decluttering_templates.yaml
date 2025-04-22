@@ -1,0 +1,274 @@
+decluttering_templates:
+  glances_windows_device:
+    default:
+      - host: null
+      - title: null
+    card:
+      square: false
+      type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: gauge
+              entity: sensor.[[host]]_cpu_usage
+              name: CPU
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              entity: sensor.[[host]]_c_disk_usage
+              name: Disk
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              name: Memory
+              entity: sensor.[[host]]_memory_usage
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 50
+                red: 75
+            - type: gauge
+              entity: sensor.[[host]]_cpu_load
+              min: 59.1
+              max: 185
+              needle: true
+              severity:
+                green: 0
+                yellow: 135
+                red: 165
+              unit: '%'
+              name: Load
+            - type: gauge
+              entity: sensor.[[host]]_battery_charge
+              name: Battery
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+              visibility:
+                - condition: state
+                  entity: sensor.[[host]]_battery_charge
+              state_not: unavailable
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: glance
+          entities:
+            - entity: sensor.[[host]]_uptime
+              name: Last Boot
+            - entity: sensor.[[host]]_c_disk_used
+              name: Disk Used
+            - entity: sensor.[[host]]_c_disk_free
+              name: Free
+            - entity: sensor.[[host]]_memory_use
+              name: Mem Used
+            - entity: sensor.[[host]]_memory_free
+              name: Free
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: entity
+          entity: sensor.[[host]]_uptime
+          name: Glances sysinfo
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+        - type: logbook
+          target:
+            entity_id:
+              - sensor.[[host]]_uptime
+          hours_to_show: 12
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+      columns: 1
+      title: '[[title]]'
+  glances_rpi_device:
+    default:
+      - host: null
+      - title: null
+    card:
+      square: false
+      type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: gauge
+              entity: sensor.[[host]]_cpu_usage
+              name: CPU
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              entity: sensor.[[host]]_disk_usage
+              name: Disk
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              name: Memory
+              entity: sensor.[[host]]_memory_usage
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 50
+                red: 75
+            - type: gauge
+              entity: sensor.[[host]]_cpu_thermal_0_temperature
+              min: 59.1
+              max: 185
+              needle: true
+              severity:
+                green: 0
+                yellow: 135
+                red: 170
+              name: Temp
+              unit: °
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: glance
+          entities:
+            - entity: sensor.[[host]]_uptime
+              name: Last Boot
+            - entity: sensor.[[host]]_disk_used
+              name: Disk Used
+            - entity: sensor.[[host]]_disk_free
+              name: Free
+            - entity: sensor.[[host]]_memory_use
+              name: Mem Used
+            - entity: sensor.[[host]]_memory_free
+              name: Free
+          state_color: false
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: entity
+          entity: sensor.[[host]]_uptime
+          name: Glances sysinfo
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+        - type: logbook
+          target:
+            entity_id:
+              - sensor.[[host]]_uptime
+          hours_to_show: 12
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+      title: '[[title]]'
+      columns: 1
+  glances_linux_device:
+    default:
+      - host: null
+      - title: null
+    card:
+      square: false
+      type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: gauge
+              entity: sensor.[[host]]_cpu_usage
+              name: CPU
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              entity: sensor.[[host]]_disk_usage
+              name: Disk
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 60
+                red: 85
+            - type: gauge
+              name: Memory
+              entity: sensor.[[host]]_memory_usage
+              unit: '%'
+              needle: true
+              severity:
+                green: 0
+                yellow: 50
+                red: 75
+            - type: gauge
+              entity: sensor.[[host]]_cputin_temperature
+              min: 59.1
+              max: 185
+              needle: true
+              severity:
+                green: 0
+                yellow: 135
+                red: 165
+              name: Temp
+              unit: °
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: glance
+          entities:
+            - entity: sensor.[[host]]_uptime
+              name: Last Boot
+            - entity: sensor.[[host]]_disk_used
+              name: Disk Used
+            - entity: sensor.[[host]]_disk_free
+              name: Free
+            - entity: sensor.[[host]]_memory_use
+              name: Mem Used
+            - entity: sensor.[[host]]_memory_free
+              name: Free
+          state_color: false
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state_not: unavailable
+        - type: entity
+          entity: sensor.[[host]]_uptime
+          name: Glances sysinfo
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+        - type: logbook
+          target:
+            entity_id:
+              - sensor.[[host]]_uptime
+          hours_to_show: 12
+          visibility:
+            - condition: state
+              entity: sensor.[[host]]_uptime
+              state: unavailable
+      title: '[[title]]'
+      columns: 1
