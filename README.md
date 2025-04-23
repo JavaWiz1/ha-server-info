@@ -7,11 +7,12 @@
 Home networks have expanded to include a wide variety of devices over the years.  In particular, windows desktops, laptops, Linux Boxes, NAS servers, Raspberry PI's, etc...
 
 Keeping track of these cross-platform devices and their information has become a challenge.  Glances is an open-source cross platform monitoring tool that provides a htop (for you linux fans),
-or task-monitory (for you windows users) interface to keep track of system cpu usages, disk/memory usage, tasks, etc...
+or task-monitor (for you windows users) interface to keep track of system cpu usages, disk/memory usage, tasks, etc...
 
 
 # Requirements
-This repository leverages 
+This repository leverage:
+
 - [Glances](https://github.com/nicolargo/glances) for system information 
 - Home Assistant [decluttering-card](https://github.com/custom-cards/decluttering-card) Lovelace interface 
 
@@ -20,7 +21,7 @@ to provide a handy, easy-to-use template for displaying system information for w
 # Pre-requisite Installs
 ## Glances
 
-Glances is a python app that runs on target servers.  It gathers runtime information (cpu, disk, memory, processes, etc..) that is exposed via API to Home Assistant and is represented as
+[Glances](https://github.com/nicolargo/glances) is a python app that runs on target servers.  It gathers runtime information (cpu, disk, memory, processes, etc..) that is exposed via API to Home Assistant and is represented as
 sensor data.
 
 ### Install
@@ -45,8 +46,7 @@ To configure targets:
 
 ## decluttering-card
 
-The decluttering-card provides the ability to build a re-usable template (card) to display information on your Home assistant dashboard, greatly reducing yaml bloat and making it easier
-to provide consistent UI updates and features.
+The [decluttering-card](https://github.com/custom-cards/decluttering-card) is a Home Assistant Lovelace helper which provides the ability to build a re-usable template (card) to display information on your Home assistant dashboard, greatly reducing yaml bloat and making it easier to provide consistent UI updates and features.
 
 ### Install
 
@@ -58,18 +58,18 @@ Installing the card by above instructions didn't work for me, so I installed/dow
 - In the row displayed, click the three dots ... on right side.
 - Click download to install the requisite .js file
 
-It basically needs a javascript file (decluttering-card.js) to be installed in your Lovelace www directory (config/www/community/decluttering-card).
+It basically copies a javascript file (decluttering-card.js) to your Lovelace www directory (config/www/community/decluttering-card).
 
 # Usage
 
 ## Validate Pre-requisites
-- Install Glances on target machines (see above).  Be sure the service is started with the -w (web server) option.
+- **Install Glances** on target machines (see above).  Be sure the service is started with the -w (web server) option.
   - Validate service is running by going to http://\<target machine\>:61208 and insure page is displayed.
-- Configure Glances in your HA instance (see above).
+- **Configure Glances** in your HA instance (see above).
   - Validate sensors are available (Setting -> Devices and Services -> Glances)
   - Insure devices are defined and entities are available.
-  
-- Install decluttering card in your Home Assistant instance (see above).
+  - Note the ***device name*** in the Entity ID, this will be used to create your card.
+- **Install decluttering-card** in your Home Assistant instance (see above).
 
 ## Create a dashboard
 - Settings -> Dashboards
@@ -84,7 +84,7 @@ It basically needs a javascript file (decluttering-card.js) to be installed in y
   views:
   - title: LAN Hosts
   ```
-- Copy the contents of the [decluttering_template.yaml](https://raw.githubusercontent.com/JavaWiz1/ha-server-info/refs/heads/develop/decluttering_templates.yaml) file to the top of the file (before the content above).  Beware of the indentation.
+- Copy the contents of [decluttering_template.yaml](https://raw.githubusercontent.com/JavaWiz1/ha-server-info/refs/heads/develop/decluttering_templates.yaml) to the top of the file in the editor (before the content above).  Beware of the indentation.
 
 Your view should reflect below (... are collapsed sections)
 ```
@@ -99,7 +99,13 @@ views:
   - title: LAN Hosts
 ```
 
-You now have an empty dashboard with 3 available templates.  This represents a 'shell' dashboard.  You may now add content as desired.
+You now have an empty dashboard with 3 available templates.  
+
+- glances_windows_device
+- glances_rpi_device
+- glances_linux_device
+  
+This represents a 'shell' dashboard.  You may now add content as desired (see example below).
 
 ## Create host cards for content
 
@@ -123,8 +129,9 @@ Each host is represented by a type block as follows:
 Assume 
 
 - Glances is setup and configured to monitor server1 (raspberry pi) and server2 (windows machine)
+- The decluttering-card has been successfully installed either manually or via HACS.
 
-To create cards on this dashboard, use the Raw configuration editor add section below to the views:
+To create cards on this dashboard, edit the dashboard via the Raw configuration editor by adding section below to the views section:
 ```
     sections:
       - type: grid
@@ -154,27 +161,28 @@ decluttering_templates:
   glances_linux_device: 
     ...
 views:
-  - title: My Lan
+  - title: My LAN 
     sections:
       - type: grid
         cards:
           - type: custom:decluttering-card
             template: glances_rpi_device
             variables:
-              - host: raspiapp4a_damiconet
+              - host: server1_local
               - title: My Raspberry Pi
       - type: grid
         cards:
           - type: custom:decluttering-card
             template: glances_windows_device
             variables:
-              - host: voyager_damiconet
+              - host: server2_local
               - title: My Windows Laptop
 ```
+NOTE: Change host and title variables to reflect your setup.
 
-Save you changes and Click Done.  The dashboard should now look similar to:
+Save your changes and Click Done.  The dashboard should now look similar to:
 
 ![NyLan Dashboard](images/MyLanDashboard.png)
 
-To add additional hosts, simple continue to add the appropriate blocks for each host via the Raw configuration editor.
+To add additional hosts, simply continue to add the appropriate blocks for each host via the Raw configuration editor.
 
