@@ -9,6 +9,9 @@ Home networks have expanded to include a wide variety of devices over the years.
 Keeping track of these cross-platform devices and their information has become a challenge.  Glances is an open-source cross platform monitoring tool that provides a htop (for you linux fans),
 or task-monitor (for you windows users) interface to keep track of system cpu usages, disk/memory usage, tasks, etc...
 
+This template is a HA Card that displays device information for target hosts.  You may tweak the template to render the stats important to you, or
+use out-of-the box to display stats as shown in the moc-ups.
+
 
 # Requirements
 This repository leverage:
